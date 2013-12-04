@@ -7,6 +7,9 @@ import android.util.Log;
 import com.epsilonlabs.kapsule.model.Car;
 import com.epsilonlabs.kapsule.model.Truck;
 
+import java.util.Arrays;
+import java.util.Collection;
+
 /**
  * Created by Sandile on 12/3/13.
  */
@@ -42,5 +45,24 @@ public class BasicTestCase extends AndroidTestCase {
                 e.printStackTrace();
             }
         });
+    }
+
+    public void testCollectionCase() {
+        Kapsule.context(new Activity()); // TODO replace this for actual db related calls
+        Kapsule.put("cars", Arrays.asList(new Car("Toyota", "Camry", 4),
+                new Car("Toyota", "Camry", 4),
+                new Car("Toyota", "Camry", 4),
+                new Car("Toyota", "Camry", 4),
+                new Car("Toyota", "Camry", 4),
+                new Car("Toyota", "Camry", 4),
+                new Car("Toyota", "Camry", 4),
+                new Car("Toyota", "Camry", 4),
+                new Car("Toyota", "Camry", 4),
+                new Car("Toyota", "Camry", 4),
+                new Car("Toyota", "Camry", 4))).synchronously();
+        Log.d("test", "cars put() successfully");
+
+        Collection<Car> cars = Kapsule.get("cars", Car.class).collection().synchronously();
+        Log.d("test", "car1 get() successfully: " + cars.size());
     }
 }

@@ -20,8 +20,6 @@ public class Kapsule {
 
     // For serialization and deserialization of objects
     private static final Gson gson = new Gson();
-    // For caching the instances of kapsules
-    private static final KapsuleCache kapsuleCache = new KapsuleCache();
     // The last specified android context for queries
     private static Context context;
 

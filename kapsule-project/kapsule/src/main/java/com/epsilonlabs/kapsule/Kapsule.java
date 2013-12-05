@@ -92,7 +92,6 @@ public class Kapsule {
                 String kapsuleId = query.kapsule();
                 if (kapsuleId == null)
                     kapsuleId = DEFAULT_KAPSULE_ID;
-
                 // Execute the db query
                 new Fetch(context, toTableName(kapsuleId)) {
 

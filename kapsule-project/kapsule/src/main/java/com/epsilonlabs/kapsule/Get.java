@@ -52,8 +52,9 @@ public class Get<T> {
         if (overridden())
             throw new UnsupportedOperationException("This callback has been overridden by a plural callback.");
 
-        this.latch.countDown();
         this.result = result;
+        this.latch.countDown();
+
         if (this.callback != null)
             this.callback.success(result);
     }

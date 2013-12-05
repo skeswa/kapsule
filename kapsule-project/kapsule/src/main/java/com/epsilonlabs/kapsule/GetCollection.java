@@ -32,8 +32,9 @@ public class GetCollection<T> {
     private Throwable problem;
 
     void doSuccess(Collection<T> result) {
-        this.latch.countDown();
         this.result = result;
+        this.latch.countDown();
+
         if (this.callback != null)
             this.callback.success(result);
     }
@@ -63,7 +64,7 @@ public class GetCollection<T> {
         return this;
     }
 
-    public void then(Callback callback) {
+    public void then(Callback<T> callback) {
         // Parameter checking
         if (callback == null)
             throw new IllegalArgumentException("The callback parameter was null.");

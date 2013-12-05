@@ -60,9 +60,52 @@ public class BasicTestCase extends AndroidTestCase {
                 new Car("Toyota", "Camry", 4),
                 new Car("Toyota", "Camry", 4),
                 new Car("Toyota", "Camry", 4))).synchronously();
-        Log.d("test", "cars put() successfully");
+        Log.d("kapsuletest", "cars put() successfully");
 
-        Collection<Car> cars = Kapsule.get("cars", Car.class).collection().synchronously();
-        Log.d("test", "car1 get() successfully: " + cars.size());
+        Kapsule.get("cars", Car.class).collection().then(new GetCollection.Callback<Car>() {
+            @Override
+            public void success(Collection<Car> result) {
+                Log.d("kapsuletest", "cars get() successfully: " + result.size());
+            }
+
+            @Override
+            public void failure(Throwable e) {
+                Log.e("kapsuletest", "cars get() failed: " + e);
+                e.printStackTrace();
+            }
+        });
+
+        Log.d("kapsuletest", "attempting to wait for a photo finish");
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void testCollectionCase2() {
+        Kapsule.context(new Activity()); // TODO replace this for actual db related calls
+        Kapsule.put("cars1", Arrays.asList(new Car("Toyota", "Camry", 4),
+                new Car("Toyota", "Camry", 4),
+                new Car("Toyota", "Camry", 4),
+                new Car("Toyota", "Camry", 4),
+                new Car("Toyota", "Camry", 4),
+                new Car("Toyota", "Camry", 4),
+                new Car("Toyota", "Camry", 4),
+                new Car("Toyota", "Camry", 4),
+                new Car("Toyota", "Camry", 4),
+                new Car("Toyota", "Camry", 4),
+                new Car("Toyota", "Camry", 4))).synchronously();
+        Log.d("kapsuletest", "cars1 put() successfully");
+
+        Long stamp = System.currentTimeMillis();
+        try {
+            Kapsule.get("cars1", Car.class).collection().synchronously().size();
+            Log.d("kapsuletest", "cars1 get() successfully");
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("kapsuletest", "cars1 get() failed: " + e);
+        }
+        Log.d("kapsuletest", "How long was it? " + (System.currentTimeMillis() - stamp));
     }
 }

@@ -23,6 +23,9 @@ Say you have a session object for your Android app that stores some basic inform
 Storing a session object in a kapsule is as easy as:
 
   ```java
+  // We have to establish the context first
+  Kapsule.context(getContext());
+  // Now we can execute the query
   Kapsule.put("da session", new MySesh("jdoe", 1337)).then(new Put.Callback() {
       @Override
       public void success() {
